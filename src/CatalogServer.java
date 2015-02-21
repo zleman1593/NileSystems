@@ -13,7 +13,7 @@ public class CatalogServer {
 	public ArrayList<String> query(String iD)
 	{
 		ArrayList<String> itemInfo;
-	
+		
 		for(int i = 0; i<4; i++)
 		{
 			itemInfo = itemList.get(i);
@@ -28,9 +28,23 @@ public class CatalogServer {
 	}
 	
 	//upates the price of an item
-	public updatePrice(string itemNumber, string newPrice)
+	public ArrayList<String> updatePrice(string itemNumber, string newPrice)
 	{
+		ArrayList<ArrayList <String>> textElement;
 		
+		for(int i = 0; i<4; i++)
+		{
+			textElement = itemList.get(i);
+			if(textElement.contains(intNumber))
+			{
+				return itemInfo;
+			}
+		}
+		
+		textElement = new Arraylist<Arraylist <String>>(3);
+		textElement.add("invalid itemNumber");
+		textElement.add("-1");
+		return textElement;
 	}
 	//updates the stock of an item
 	public updateStock(string itemNumber, string newNum)
