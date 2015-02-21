@@ -4,9 +4,8 @@ import java.rmi.registry.Registry;
 
 public class Client {
 	private ClientToFronEndServer stub;
-
-	public static void main(String[] args) {
-		String host = (args.length < 1) ? "localhost" : args[0];
+	//Constructor
+	public  Client(String host) {
 		try {
 			Registry registry = LocateRegistry.getRegistry(host, 8888);
 			stub = (ClientToFronEndServer) registry.lookup("FrontEndServer");
