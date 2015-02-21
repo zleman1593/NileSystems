@@ -4,15 +4,15 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
-public class CatalougeServer {
+public class CatalogServer {
 	
 	//list to hold information about the 4 books
-	Arraylist<String> itemList;
+	ArrayList<ArrayList<String>> itemList;
 	
 	//searches for an item by its number or by topic
 	public ArrayList<String> query(String iD)
 	{
-		ArrayList<ArrayList <String>> itemInfo = new Arraylist<Arraylist <String>>(3);
+		ArrayList<String> itemInfo;
 	
 		for(int i = 0; i<4; i++)
 		{
@@ -22,7 +22,9 @@ public class CatalougeServer {
 				return itemInfo;
 			}
 		}
-		return false;
+		itemInfo = new ArrayList<String>(1);
+		itemInfo.add("-1");
+		return itemInfo;
 	}
 	
 	//upates the price of an item
@@ -38,17 +40,17 @@ public class CatalougeServer {
 	//hold information about the four books
 	  public static void main(String args[]) {
 		    try {
-		      Server obj = new Server();
+		    	CatalogServer obj = new CatalogServer();
 		      Hello stub = (Hello) UnicastRemoteObject.exportObject(obj, 0);
 		      Registry registry = LocateRegistry.createRegistry(8888);
 		      registry.bind("Hello", stub);
-		      itemList = new Arraylist<String>(4);
+		      itemList = new ArrayList<ArrayList<String>>(4);
 		      
 		      //create textbook elements and add them to itemList
-		      ArrayList<String> input1 = new Arraylist<String>(3);
-		      Arraylist<String> input2 = new Arraylist<String>(3);
-		      Arraylist<String> input3 = new Arraylist<String>(3);
-		      Arraylist<String> input4 = new Arraylist<String>(3);
+		      ArrayList<String> input1 = new ArrayList<String>(3);
+		      ArrayList<String> input2 = new ArrayList<String>(3);
+		      ArrayList<String> input3 = new ArrayList<String>(3);
+		      ArrayList<String> input4 = new ArrayList<String>(3);
 		      
 		      input1.add("Achieving Less Bugs with More Hugs in CSCI 3325");
 		      input1.add("57471");
