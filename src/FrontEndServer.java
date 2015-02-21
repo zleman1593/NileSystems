@@ -1,11 +1,8 @@
-
 import java.rmi.server.UnicastRemoteObject;
 import java.rmi.registry.Registry;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.RemoteException;
 import java.util.*;
-
-
 
 public class FrontEndServer {
 	private FrontEndServerToOrderServer stub;
@@ -17,6 +14,22 @@ public class FrontEndServer {
 		    } catch (Exception e) {
 		        System.err.println("Client exception: " + e.toString());
 		    }
+		    
+		    
+			/*
+			 * Create FrontEndServer Server and its interface so that the client
+			 * can talk to it
+			 */
+			try {
+				FrontEndServer obj = new FrontEndServer();
+				ClientToFronEndServer stub = (ClientToFronEndServer) UnicastRemoteObject.exportObject(obj, 0);
+				Registry registry = LocateRegistry.createRegistry(8888);
+				registry.bind("FrontEndServer", stub);
+			} catch (Exception e) {
+				System.err.println("Order Server exception: " + e.toString());
+			}
+		    
+		    
 		  }
 
 	 
