@@ -12,8 +12,16 @@ public class FrontEndServer {
 		      Registry registry = LocateRegistry.getRegistry(host, 8888);
 		      FrontEndServerToOrderServer stub = (FrontEndServerToOrderServer) registry.lookup("FrontEndServerToOrderServer");
 		    } catch (Exception e) {
-		        System.err.println("Client exception: " + e.toString());
+		        System.err.println("Front-end Server exception: " + e.toString());
 		    }
+		    
+		    
+		    try {
+			      Registry registry = LocateRegistry.getRegistry(host, 8888);
+			      FrontEndServerToCatalogServer stub = (FrontEndServerToCatalogServer) registry.lookup("FrontEndServerToCatalogServer");
+			    } catch (Exception e) {
+			        System.err.println("Front-end Server exception: " + e.toString());
+			    }
 		    
 		    
 			/*

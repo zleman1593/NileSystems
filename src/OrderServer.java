@@ -5,8 +5,7 @@ import java.rmi.RemoteException;
 import java.util.*;
 
 public class OrderServer implements FrontEndServerToOrderServer {
-	private orderServerToCatalogServer stub;
-
+	private OrderServerToCatalogeServer stub;
 
 	public static void main(String args[]) {
 		/*
@@ -24,14 +23,14 @@ public class OrderServer implements FrontEndServerToOrderServer {
 
 		
 		//Connect to the interface provided by the catalog server
-		/*
+		
 		try {
 			Registry registry = LocateRegistry.getRegistry("localhost", 8888);
-			FrontEndServerToOrderServer stub = (FrontEndServerToOrderServer) registry
-					.lookup("FrontEndServerToOrderServer");
+			 stub = (OrderServerToCatalogeServer) registry
+					.lookup("OrderServerToCatalogeServer");
 		} catch (Exception e) {
-			System.err.println("Client exception: " + e.toString());
-		}*/
+			System.err.println("Order Server exception: " + e.toString());
+		}
 
 	}
 
