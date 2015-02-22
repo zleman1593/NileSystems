@@ -1,9 +1,12 @@
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 public interface FrontEndServerToCatalogServer extends Remote {
-	// throws RemoteException;
+	ArrayList<String> queryByItem(String iD) throws RemoteException;
+	/*throws RemoteException;
+	throws RemoteException;*/
 }
 
 

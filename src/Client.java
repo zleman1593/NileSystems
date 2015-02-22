@@ -16,7 +16,7 @@ public class Client {
 
 	public void actionOne() throws RemoteException {
 
-		if (!stub.buy(57471)) {
+		if (!stub.buy("57471")) {
 			System.out.println("Out of Stock");
 		}
 	}

@@ -4,13 +4,13 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
-public class CatalogServer {
+public class CatalogServer implements OrderServerToCatalogeServer{
 	
 	//list to hold information about the 4 books
-	ArrayList<ArrayList<String>> itemList;
+	private ArrayList<ArrayList<String>> itemList;
 	
 	//searches for an item by its number or by topic
-	public ArrayList<String> query(String iD)
+	public ArrayList<String> queryByItem(String iD)
 	{
 		ArrayList<String> itemInfo;
 		

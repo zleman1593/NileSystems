@@ -5,7 +5,9 @@ import java.rmi.RemoteException;
 import java.util.*;
 
 public class OrderServer implements FrontEndServerToOrderServer {
-	private OrderServerToCatalogeServer stub;
+	private FrontEndServerToOrderServer stubOrder;
+	private OrderServerToCatalogeServer stubCatalog;
+	private Registry registry;
 
 	public static void main(String args[]) {
 		/*
@@ -14,32 +16,32 @@ public class OrderServer implements FrontEndServerToOrderServer {
 		 */
 		try {
 			OrderServer obj = new OrderServer();
-			orderServerToCatalogServer stub = (orderServerToCatalogServer) UnicastRemoteObject.exportObject(obj, 0);
+			FrontEndServerToOrderServer stubOrder = (FrontEndServerToOrderServer) UnicastRemoteObject.exportObject(obj,
+					0);
 			Registry registry = LocateRegistry.createRegistry(8888);
-			registry.bind("OrderServer", stub);
-		} catch (Exception e) {
-			System.err.println("Order Server exception: " + e.toString());
-		}
-
-		
-		//Connect to the interface provided by the catalog server
-		
-		try {
-			Registry registry = LocateRegistry.getRegistry("localhost", 8888);
-			 stub = (OrderServerToCatalogeServer) registry
-					.lookup("OrderServerToCatalogeServer");
+			registry.bind("OrderServer", stubOrder);
 		} catch (Exception e) {
 			System.err.println("Order Server exception: " + e.toString());
 		}
 
 	}
 
+	public OrderServer() {
+		// Connect to the interface provided by the catalog server
+		try {
+			registry = LocateRegistry.getRegistry("localhost", 8888);
+			stubCatalog = (OrderServerToCatalogeServer) registry.lookup("OrderServerToCatalogeServer");
+		} catch (Exception e) {
+			System.err.println("Order Server exception: " + e.toString());
+		}
+	}
+
 	@Override
-	public boolean buy(int itemNumber) throws RemoteException {
+	public boolean buy(String itemNumber) throws RemoteException {
 		// Query catalog to make sure the item is in stock and decrement count
 		// by 1
 		// Returns true if success and false if out of stock
-
+		System.out.println("reached");
 		return false;
 	}
 }
