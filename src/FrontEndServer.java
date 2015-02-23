@@ -31,7 +31,7 @@ public class FrontEndServer implements ClientToFronEndServer {
 		// String host = (args.length < 1) ? "localhost" : args[0];
 		try {
 			registry = LocateRegistry.getRegistry("localhost", PORT);
-			FrontEndServerToOrderServer stubOrder = (FrontEndServerToOrderServer) registry.lookup("FrontEndServerToOrderServer");
+			 stubOrder = (FrontEndServerToOrderServer) registry.lookup("FrontEndServerToOrderServer");
 			//FrontEndServerToCatalogServer stubCatalog = (FrontEndServerToCatalogServer) registry.lookup("FrontEndServerToCatalogServer");
 		} catch (Exception e) {
 			System.err.println("Front-end Server exception when connecting to backend servers : " + e.toString());
@@ -42,9 +42,8 @@ public class FrontEndServer implements ClientToFronEndServer {
 	/* Attempts to buy one book. Returns false if not enough books available */
 	@Override
 	public boolean buy(String itemNumber) throws RemoteException {
-		boolean sucess = true;
-		sucess = stubOrder.buy(itemNumber);
-		return sucess;
+		System.out.println("Buy method on front-end server has received a request");
+		return stubOrder.buy(itemNumber);
 	}
 
 	@Override
@@ -55,7 +54,6 @@ public class FrontEndServer implements ClientToFronEndServer {
 
 	@Override
 	public ArrayList<String> lookup(String itemNumber) throws RemoteException {
-
 		return stubCatalog.queryByItem(itemNumber);
 	}
 
