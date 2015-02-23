@@ -79,23 +79,7 @@ public class CatalogServer implements OrderServerToCatalogeServer,FrontEndServer
 		return itemInfo;
 	}
 
-	//Updates the price of an item
-	public ArrayList<String> updatePrice(String itemNumber, String newPrice) {
-		ArrayList<String> textElement;
-
-		for (int i = 0; i < 4; i++) {
-			textElement = itemList.get(i);
-			if (textElement.contains(Integer.parseInt(itemNumber))) {
-				textElement.set(2, newPrice);
-				return itemList.get(i);
-			}
-		}
-
-		textElement = new ArrayList<String>(2);
-		textElement.add("invalid itemNumber");
-		textElement.add("-1");
-		return textElement;
-	}
+	
 
 	// updates the stock of an item
 	public ArrayList<String> updateStock(String itemNumber, String newNum) {
@@ -116,5 +100,25 @@ public class CatalogServer implements OrderServerToCatalogeServer,FrontEndServer
 		textElement.add("-1");
 		return textElement;
 	}
+	
+	
+	
+	//Updates the price of an item
+		public ArrayList<String> updatePrice(String itemNumber, String newPrice) {
+			ArrayList<String> textElement;
+
+			for (int i = 0; i < 4; i++) {
+				textElement = itemList.get(i);
+				if (textElement.contains(Integer.parseInt(itemNumber))) {
+					textElement.set(2, newPrice);
+					return itemList.get(i);
+				}
+			}
+
+			textElement = new ArrayList<String>(2);
+			textElement.add("invalid itemNumber");
+			textElement.add("-1");
+			return textElement;
+		}
 
 }
