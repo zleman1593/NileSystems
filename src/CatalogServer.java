@@ -32,23 +32,30 @@ public class CatalogServer implements OrderServerToCatalogeServer {
 		itemList = new ArrayList<ArrayList<String>>(4);
 
 		// create textbook elements and add them to itemList
-		ArrayList<String> input1 = new ArrayList<String>(3);
-		ArrayList<String> input2 = new ArrayList<String>(3);
-		ArrayList<String> input3 = new ArrayList<String>(3);
-		ArrayList<String> input4 = new ArrayList<String>(3);
+		ArrayList<String> input1 = new ArrayList<String>(4);
+		ArrayList<String> input2 = new ArrayList<String>(4);
+		ArrayList<String> input3 = new ArrayList<String>(4);
+		ArrayList<String> input4 = new ArrayList<String>(4);
 
-		input1.add("Achieving Less Bugs with More Hugs in CSCI 3325");
-		input1.add("57471");
 		input1.add("5");
-		input2.add("Distributed Systems for Dummies");
-		input2.add("58574");
+		input1.add("101");
+		input1.add("57471");
+		input1.add("Achieving Less Bugs with More Hugs in CSCI 3325");
+		
 		input2.add("5");
-		input3.add("Surviving College");
-		input3.add("12395");
+		input2.add("121");
+		input2.add("58574");
+		input2.add("Distributed Systems for Dummies");
+
 		input3.add("5");
-		input4.add("Cooking for the Impatient Undergraduate");
-		input4.add("13298");
+		input3.add("141");
+		input3.add("12395");
+		input3.add("Surviving College");
+		
 		input4.add("5");
+		input4.add("161");
+		input4.add("13298");
+		input4.add("Cooking for the Impatient Undergraduate");
 
 		itemList.add(input1);
 		itemList.add(input2);
@@ -74,12 +81,13 @@ public class CatalogServer implements OrderServerToCatalogeServer {
 
 	//Updates the price of an item
 	public ArrayList<String> updatePrice(String itemNumber, String newPrice) {
-		ArrayList<ArrayList<String>> textElement;
+		ArrayList<String> textElement;
 
 		for (int i = 0; i < 4; i++) {
 			textElement = itemList.get(i);
 			if (textElement.contains(intNumber)) {
-				return itemInfo;
+				textElement.set(2, newPrice);
+				return itemList.get(i);
 			}
 		}
 
@@ -90,8 +98,23 @@ public class CatalogServer implements OrderServerToCatalogeServer {
 	}
 
 	// updates the stock of an item
-	public updateStock(String itemNumber, String newNum) {
+	public ArrayList<String> updateStock(String itemNumber, String newNum) {
+		ArrayList<String> textElement;
 
+		for (int i = 0; i < 4; i++) {
+			textElement = itemList.get(i);
+			if (textElement.contains(intNumber)) {
+				int oldStock = textElement.get(3);
+				oldStock += newNum;
+				textElement.set(3, oldStock);
+				return itemList.get(i);
+			}
+		}
+		
+		textElement = new Arraylist<Arraylist<String>>(3);
+		textElement.add("invalid itemNumber");
+		textElement.add("-1");
+		return textElement;
 	}
 
 }
