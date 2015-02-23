@@ -8,15 +8,15 @@ public class OrderServer implements FrontEndServerToOrderServer {
 	private FrontEndServerToOrderServer stubOrder;
 	private OrderServerToCatalogeServer stubCatalog;
 	private Registry registry;
-	static int OSPORT = 8885;
-	static int CSPORT = 8884;
+	static int PORT = 8884;
 	public static void main(String args[]) {
 		/*
 		 * Create Order Server and its interface so that the front-end server
 		 * can talk to it
 		 */
 		try {
-			Registry registry = LocateRegistry.createRegistry(OSPORT);
+			//Registry registry = LocateRegistry.createRegistry(OSPORT);
+			Registry registry = LocateRegistry.getRegistry("localhost", PORT);
 			OrderServer obj = new OrderServer();
 			FrontEndServerToOrderServer stubOrder = (FrontEndServerToOrderServer) UnicastRemoteObject.exportObject(obj,
 					0);
@@ -31,8 +31,8 @@ public class OrderServer implements FrontEndServerToOrderServer {
 	public OrderServer() {
 		// Connect to the interface provided by the catalog server
 		try {
-			registry = LocateRegistry.getRegistry("localhost", CSPORT);
-			stubCatalog = (OrderServerToCatalogeServer) registry.lookup("OrderServerToCatalogeServer");
+			registry = LocateRegistry.getRegistry("localhost", PORT);
+			stubCatalog = (OrderServerToCatalogeServer) registry.lookup("CatalogServer");
 		} catch (Exception e) {
 			System.err.println("Order Server exception: " + e.toString());
 		}

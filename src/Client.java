@@ -4,11 +4,11 @@ import java.rmi.registry.Registry;
 
 public class Client {
 	private ClientToFronEndServer stub;
-	static int FSPORT = 8886;
+	static int PORT = 8884;
 	//Constructor
 	public  Client(String host) {
 		try {
-			Registry registry = LocateRegistry.getRegistry(host, FSPORT );
+			Registry registry = LocateRegistry.getRegistry(host, PORT );
 			stub = (ClientToFronEndServer) registry.lookup("FrontEndServer");
 		} catch (Exception e) {
 			System.err.println("Client exception: " + e.toString());
