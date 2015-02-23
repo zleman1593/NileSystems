@@ -32,7 +32,7 @@ public class FrontEndServer implements ClientToFronEndServer {
 		try {
 			registry = LocateRegistry.getRegistry("localhost", PORT);
 			 stubOrder = (FrontEndServerToOrderServer) registry.lookup("FrontEndServerToOrderServer");
-			//FrontEndServerToCatalogServer stubCatalog = (FrontEndServerToCatalogServer) registry.lookup("FrontEndServerToCatalogServer");
+			FrontEndServerToCatalogServer stubCatalog = (FrontEndServerToCatalogServer) registry.lookup("FrontEndServerToCatalogServer");
 		} catch (Exception e) {
 			System.err.println("Front-end Server exception when connecting to backend servers : " + e.toString());
 		}
