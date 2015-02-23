@@ -85,13 +85,13 @@ public class CatalogServer implements OrderServerToCatalogeServer,FrontEndServer
 
 		for (int i = 0; i < 4; i++) {
 			textElement = itemList.get(i);
-			if (textElement.contains(intNumber)) {
+			if (textElement.contains(Integer.parseInt(itemNumber))) {
 				textElement.set(2, newPrice);
 				return itemList.get(i);
 			}
 		}
 
-		textElement = new Arraylist<Arraylist<String>>(3);
+		textElement = new ArrayList<String>(2);
 		textElement.add("invalid itemNumber");
 		textElement.add("-1");
 		return textElement;
@@ -103,15 +103,15 @@ public class CatalogServer implements OrderServerToCatalogeServer,FrontEndServer
 
 		for (int i = 0; i < 4; i++) {
 			textElement = itemList.get(i);
-			if (textElement.contains(intNumber)) {
-				int oldStock = textElement.get(3);
-				oldStock += newNum;
-				textElement.set(3, oldStock);
+			if (textElement.contains(Integer.parseInt(itemNumber))) {
+				int oldStock = Integer.parseInt(textElement.get(3));
+				oldStock += Integer.parseInt(newNum);
+				textElement.set(3, ""+oldStock);
 				return itemList.get(i);
 			}
 		}
 		
-		textElement = new Arraylist<Arraylist<String>>(3);
+		textElement = new ArrayList<String>(2);
 		textElement.add("invalid itemNumber");
 		textElement.add("-1");
 		return textElement;
