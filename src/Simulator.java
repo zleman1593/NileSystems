@@ -9,9 +9,11 @@ public class Simulator {
 		//Create delay
 		//Second client
 		Client second = new Client("localhost");
+		first.actionTwo();
 		//Create delay
 		//Third client
 		Client third = new Client("localhost");
+		first.actionThree();
 		
 	
 	}

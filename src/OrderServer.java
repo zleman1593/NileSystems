@@ -40,10 +40,15 @@ public class OrderServer implements FrontEndServerToOrderServer {
 
 	@Override
 	public boolean buy(String itemNumber) throws RemoteException {
-		// Query catalog to make sure the item is in stock and decrement count
-		// by 1
+		// Query catalog to make sure the item is in stock and decrement count by 1
+		if(!stubCatalog.queryByItem(itemNumber).get(0).equalsIgnoreCase("-1")){
+			stubCatalog.updateStock(itemNumber, "-1");
+			System.out.println("Purchased Book");
+		}else{
+
 		// Returns true if success and false if out of stock
-		System.out.println("Buy method on order server has received a request");
+		System.out.println("Book purchase could not be completed at this time.");
+		}
 		return true;
 	}
 }

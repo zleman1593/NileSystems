@@ -12,6 +12,7 @@ public class FrontEndServer implements ClientToFronEndServer {
 	static int OSPORT = 8885;
 	static int CSPORT = 8884;
 	static int FSPORT = 8886;
+
 	public static void main(String[] args) {
 
 		/*
@@ -31,12 +32,12 @@ public class FrontEndServer implements ClientToFronEndServer {
 
 	// constructor
 	public FrontEndServer() {
-		// String host = (args.length < 1) ? "localhost" : args[0];
 		try {
 			registryOS = LocateRegistry.getRegistry("localhost", OSPORT);
 			registryCS = LocateRegistry.getRegistry("localhost", CSPORT);
-			 stubOrder = (FrontEndServerToOrderServer) registryOS.lookup("FrontEndServerToOrderServer");
-			FrontEndServerToCatalogServer stubCatalog = (FrontEndServerToCatalogServer) registryCS.lookup("FrontEndServerToCatalogServer");
+			stubOrder = (FrontEndServerToOrderServer) registryOS.lookup("FrontEndServerToOrderServer");
+			FrontEndServerToCatalogServer stubCatalog = (FrontEndServerToCatalogServer) registryCS
+					.lookup("FrontEndServerToCatalogServer");
 		} catch (Exception e) {
 			System.err.println("Front-end Server exception when connecting to backend servers : " + e.toString());
 		}
@@ -52,8 +53,8 @@ public class FrontEndServer implements ClientToFronEndServer {
 
 	@Override
 	public ArrayList<ArrayList<String>> search(String topic) throws RemoteException {
-		return new ArrayList<ArrayList<String>>();//stubCatalog.query(topic);
-		
+		return new ArrayList<ArrayList<String>>();// stubCatalog.query(topic);
+
 	}
 
 	@Override

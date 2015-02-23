@@ -21,5 +21,18 @@ public class Client {
 			System.out.println("Out of Stock");
 		}
 	}
+	
+	public void actionTwo() throws RemoteException {
+		System.out.println("Action Two invoked from Second Client");
+		
+			System.out.println(stub.search("Distrbuted Systems"));
+		
+	}
+	
+	
+	public void actionThree() throws RemoteException {
+		System.out.println("Action Three invoked from Third Client");
+		System.out.println(stub.lookup("57471"));
+	}
 
 }
