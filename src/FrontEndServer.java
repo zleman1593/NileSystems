@@ -36,7 +36,7 @@ public class FrontEndServer implements ClientToFronEndServer {
 			registryOS = LocateRegistry.getRegistry("localhost", OSPORT);
 			registryCS = LocateRegistry.getRegistry("localhost", CSPORT);
 			stubOrder = (FrontEndServerToOrderServer) registryOS.lookup("FrontEndServerToOrderServer");
-			FrontEndServerToCatalogServer stubCatalog = (FrontEndServerToCatalogServer) registryCS
+			stubCatalog = (FrontEndServerToCatalogServer) registryCS
 					.lookup("FrontEndServerToCatalogServer");
 		} catch (Exception e) {
 			System.err.println("Front-end Server exception when connecting to backend servers : " + e.toString());
@@ -52,8 +52,8 @@ public class FrontEndServer implements ClientToFronEndServer {
 	}
 
 	@Override
-	public ArrayList<ArrayList<String>> search(String topic) throws RemoteException {
-		return new ArrayList<ArrayList<String>>();// stubCatalog.query(topic);
+	public ArrayList<String> search(String topic) throws RemoteException {
+		return  stubCatalog.queryByItem(topic);
 
 	}
 

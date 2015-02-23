@@ -25,7 +25,11 @@ public class Client {
 	public void actionTwo() throws RemoteException {
 		System.out.println("Action Two invoked from Second Client");
 		
-			System.out.println(stub.search("Distrbuted Systems"));
+			if(!stub.search("Distributed Systems for Dummies").get(0).equalsIgnoreCase("-1")){
+				System.out.println("Found Book");
+			}else{
+				System.out.println("Out of Stock");
+			}
 		
 	}
 	

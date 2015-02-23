@@ -5,8 +5,7 @@ import java.util.ArrayList;
 
 public interface FrontEndServerToCatalogServer extends Remote {
 	ArrayList<String> queryByItem(String iD) throws RemoteException;
-	/*throws RemoteException;
-	throws RemoteException;*/
+
 }
 
 

@@ -44,11 +44,13 @@ public class OrderServer implements FrontEndServerToOrderServer {
 		if(!stubCatalog.queryByItem(itemNumber).get(0).equalsIgnoreCase("-1")){
 			stubCatalog.updateStock(itemNumber, "-1");
 			System.out.println("Purchased Book");
+			return true;
 		}else{
 
 		// Returns true if success and false if out of stock
 		System.out.println("Book purchase could not be completed at this time.");
+		return false;
 		}
-		return true;
+		
 	}
 }
