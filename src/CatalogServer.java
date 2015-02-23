@@ -1,11 +1,12 @@
 import java.rmi.registry.Registry;
 import java.rmi.registry.LocateRegistry;
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
-public class CatalogServer implements OrderServerToCatalogeServer {
-	static int PORT = 8884;
+public class CatalogServer implements OrderServerToCatalogeServer,FrontEndServerToCatalogServer {
+	static int CSPORT = 8884;
 	// list to hold information about the 4 books
 	private ArrayList<ArrayList<String>> itemList;
 
@@ -13,11 +14,10 @@ public class CatalogServer implements OrderServerToCatalogeServer {
 	public static void main(String args[]) {
 		try {
 			CatalogServer obj = new CatalogServer();
-			OrderServerToCatalogeServer stubForOrder = (OrderServerToCatalogeServer) UnicastRemoteObject.exportObject(
-					obj, 0);
-			FrontEndServerToCatalogServer stubForFront = (FrontEndServerToCatalogServer) UnicastRemoteObject
-					.exportObject(obj, 0);
-			Registry registry = LocateRegistry.createRegistry(PORT);
+			CatalogServer obj2 = new CatalogServer();
+			OrderServerToCatalogeServer stubForOrder = (OrderServerToCatalogeServer) UnicastRemoteObject.exportObject(obj, 0);
+			FrontEndServerToCatalogServer stubForFront = (FrontEndServerToCatalogServer) UnicastRemoteObject.exportObject(obj2, 0);
+			Registry registry = LocateRegistry.createRegistry(CSPORT);
 			registry.bind("OrderServerToCatalogeServer", stubForOrder);
 			registry.bind("FrontEndServerToCatalogServer", stubForFront);
 

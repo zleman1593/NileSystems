@@ -5,10 +5,13 @@ import java.rmi.RemoteException;
 import java.util.*;
 
 public class FrontEndServer implements ClientToFronEndServer {
-	private Registry registry;
+	private Registry registryCS;
+	private Registry registryOS;
 	private FrontEndServerToOrderServer stubOrder;
 	private FrontEndServerToCatalogServer stubCatalog;
-	static int PORT = 8884;
+	static int OSPORT = 8885;
+	static int CSPORT = 8884;
+	static int FSPORT = 8886;
 	public static void main(String[] args) {
 
 		/*
@@ -18,7 +21,7 @@ public class FrontEndServer implements ClientToFronEndServer {
 		try {
 			FrontEndServer obj = new FrontEndServer();
 			ClientToFronEndServer stub = (ClientToFronEndServer) UnicastRemoteObject.exportObject(obj, 0);
-			Registry registry = LocateRegistry.createRegistry(PORT+1);
+			Registry registry = LocateRegistry.createRegistry(FSPORT);
 			registry.bind("FrontEndServer", stub);
 		} catch (Exception e) {
 			System.err.println("Front-end Server exception when init Server: " + e.toString());
@@ -30,9 +33,10 @@ public class FrontEndServer implements ClientToFronEndServer {
 	public FrontEndServer() {
 		// String host = (args.length < 1) ? "localhost" : args[0];
 		try {
-			registry = LocateRegistry.getRegistry("localhost", PORT);
-			 stubOrder = (FrontEndServerToOrderServer) registry.lookup("FrontEndServerToOrderServer");
-			FrontEndServerToCatalogServer stubCatalog = (FrontEndServerToCatalogServer) registry.lookup("FrontEndServerToCatalogServer");
+			registryOS = LocateRegistry.getRegistry("localhost", OSPORT);
+			registryCS = LocateRegistry.getRegistry("localhost", CSPORT);
+			 stubOrder = (FrontEndServerToOrderServer) registryOS.lookup("FrontEndServerToOrderServer");
+			FrontEndServerToCatalogServer stubCatalog = (FrontEndServerToCatalogServer) registryCS.lookup("FrontEndServerToCatalogServer");
 		} catch (Exception e) {
 			System.err.println("Front-end Server exception when connecting to backend servers : " + e.toString());
 		}
