@@ -28,7 +28,7 @@ public class OrderServer implements FrontEndServerToOrderServer {
 
 	}
 
-	public OrderServer() {
+	public synchronized OrderServer() {
 		// Connect to the interface provided by the catalog server
 		try {
 			registry = LocateRegistry.getRegistry("localhost", PORT);
@@ -39,7 +39,7 @@ public class OrderServer implements FrontEndServerToOrderServer {
 	}
 
 	@Override
-	public boolean buy(String itemNumber) throws RemoteException {
+	public synchronized boolean buy(String itemNumber) throws RemoteException {
 		// Query catalog to make sure the item is in stock and decrement count by 1
 		if(!stubCatalog.queryByItem(itemNumber).get(0).equalsIgnoreCase("-1")){
 			stubCatalog.updateStock(itemNumber, "-1");

@@ -6,7 +6,7 @@ public class Client {
 	private ClientToFronEndServer stub;
 	static int PORT = 8884;
 	//Constructor
-	public  Client(String host) {
+	public Client(String host) {
 		try {
 			Registry registry = LocateRegistry.getRegistry(host, PORT );
 			stub = (ClientToFronEndServer) registry.lookup("FrontEndServer");

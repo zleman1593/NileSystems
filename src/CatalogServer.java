@@ -28,7 +28,7 @@ public class CatalogServer implements OrderServerToCatalogeServer,FrontEndServer
 	}
 
 	// Constructor
-	public CatalogServer() {
+	public synchronized CatalogServer() {
 
 		itemList = new ArrayList<ArrayList<String>>(4);
 
@@ -66,7 +66,7 @@ public class CatalogServer implements OrderServerToCatalogeServer,FrontEndServer
 	}
 
 	// searches for an item by its number or by topic
-	public ArrayList<String> queryByItem(String iD) {
+	public synchronized ArrayList<String> queryByItem(String iD) {
 		ArrayList<String> itemInfo;
 
 		for (int i = 0; i < 4; i++) {
@@ -83,7 +83,7 @@ public class CatalogServer implements OrderServerToCatalogeServer,FrontEndServer
 	
 
 	// updates the stock of an item
-	public ArrayList<String> updateStock(String itemNumber, String newNum) {
+	public synchronized ArrayList<String> updateStock(String itemNumber, String newNum) {
 		ArrayList<String> textElement;
 
 		for (int i = 0; i < 4; i++) {
@@ -105,7 +105,7 @@ public class CatalogServer implements OrderServerToCatalogeServer,FrontEndServer
 	
 	
 	//Updates the price of an item
-		public ArrayList<String> updatePrice(String itemNumber, String newPrice) {
+		public synchronized ArrayList<String> updatePrice(String itemNumber, String newPrice) {
 			ArrayList<String> textElement;
 
 			for (int i = 0; i < 4; i++) {
