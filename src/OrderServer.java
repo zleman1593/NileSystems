@@ -28,7 +28,7 @@ public class OrderServer implements FrontEndServerToOrderServer {
 
 	}
 
-	public synchronized OrderServer() {
+	public OrderServer() {
 		// Connect to the interface provided by the catalog server
 		try {
 			registry = LocateRegistry.getRegistry("localhost", PORT);

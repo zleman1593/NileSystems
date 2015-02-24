@@ -28,7 +28,7 @@ public class FrontEndServer implements ClientToFronEndServer {
 	}
 
 	// constructor
-	public synchronized FrontEndServer() {
+	public FrontEndServer() {
 		try {
 			registry = LocateRegistry.getRegistry("localhost", PORT);
 			stubOrder = (FrontEndServerToOrderServer) registry.lookup("FrontEndServerToOrderServer");
@@ -50,7 +50,6 @@ public class FrontEndServer implements ClientToFronEndServer {
 	@Override
 	public synchronized ArrayList<String> search(String topic) throws RemoteException {
 		return  stubCatalog.queryByItem(topic);
-
 	}
 
 	@Override

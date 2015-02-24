@@ -66,15 +66,19 @@ public class CatalogServer implements OrderServerToCatalogeServer,FrontEndServer
 	}
 
 	// searches for an item by its number or by topic
-	public synchronized ArrayList<String> queryByItem(String iD) {
+	public ArrayList<String> queryByItem(String iD) {
 		ArrayList<String> itemInfo;
-
-		for (int i = 0; i < 4; i++) {
-			itemInfo = itemList.get(i);
-			if (itemInfo.contains(iD)) {
-				return itemInfo;
+		
+		//want to prevent textbook info from being changed
+		synchronized(this){
+			for (int i = 0; i < 4; i++) {
+				itemInfo = itemList.get(i);
+				if (itemInfo.contains(iD)) {
+					return itemInfo;
+				}
 			}
 		}
+
 		itemInfo = new ArrayList<String>(1);
 		itemInfo.add("-1");
 		return itemInfo;
@@ -85,13 +89,12 @@ public class CatalogServer implements OrderServerToCatalogeServer,FrontEndServer
 	// updates the stock of an item
 	public synchronized ArrayList<String> updateStock(String itemNumber, String newNum) {
 		ArrayList<String> textElement;
-
+		
 		for (int i = 0; i < 4; i++) {
 			textElement = itemList.get(i);
 			if (textElement.contains(Integer.parseInt(itemNumber))) {
 				int oldStock = Integer.parseInt(textElement.get(3));
-				oldStock += Integer.parseInt(newNum);
-				textElement.set(3, ""+oldStock);
+				oldStock += Integer.parseInt(newNum);					textElement.set(3, ""+oldStock);
 				return itemList.get(i);
 			}
 		}
