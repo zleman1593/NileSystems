@@ -42,21 +42,25 @@ public class CatalogServer implements OrderServerToCatalogeServer,FrontEndServer
 		input1.add("101");
 		input1.add("57471");
 		input1.add("Achieving Less Bugs with More Hugs in CSCI 3325");
+		input1.add(" distributed systems");
 		
 		input2.add("5");
 		input2.add("121");
 		input2.add("58574");
 		input2.add("Distributed Systems for Dummies");
+		input2.add(" distributed systems");
 
 		input3.add("5");
 		input3.add("141");
 		input3.add("12395");
 		input3.add("Surviving College");
+		input3.add("college life");
 		
 		input4.add("5");
 		input4.add("161");
 		input4.add("13298");
 		input4.add("Cooking for the Impatient Undergraduate");
+		input4.add("college life");
 
 		itemList.add(input1);
 		itemList.add(input2);
@@ -81,7 +85,7 @@ public class CatalogServer implements OrderServerToCatalogeServer,FrontEndServer
 					continue;
 				}
 				
-				if(itemList.get(i).get(3).contains(ss))
+				if(itemList.get(i).get(3).contains(ss) || itemList.get(i).get(4).contains(ss) )
 				{
 					 returnList.add(itemList.get(i));
 				}
