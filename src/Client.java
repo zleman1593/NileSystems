@@ -3,6 +3,8 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
 
+import com.sun.org.apache.xpath.internal.operations.String;
+
 public class Client {
 	private ClientToFronEndServer stub;
 	static int PORT = 8884;
@@ -36,11 +38,14 @@ public class Client {
 	
 	public void actionTwo() throws RemoteException {
 		System.out.println("Action Two invoked from Second Client");
-		
-			if(!stub.search("Distributed Systems for Dummies").get(0).equalsIgnoreCase("-1")){
-				System.out.println("Found Book");
+			ArrayList<ArrayList<String>> result = stub.search("Distributed Systems for Dummies");
+			if(result.size == 0){
+				System.out.println("Could not find any books with those search words");
 			}else{
-				System.out.println("Out of Stock");
+				for(int i = 0; i < result.size(); i++)
+				{
+					System.out.println(result.get(0).get(0) + ": Item Number " + result.get(0).get(1));
+				}	
 			}
 		
 	}

@@ -65,13 +65,40 @@ public class CatalogServer implements OrderServerToCatalogeServer,FrontEndServer
 
 	}
 
-	// searches for an item by its number or by topic
+	//searches for an item by its topic
+	public ArrayList<ArrayList<String>> queryByTopic(String topic)
+	{
+		ArrayList<ArrayList<String>> returnList  = new ArrayList<ArrayList<String>>();
+		String[] arr = topic.split(" ");
+		for(String ss : arr)
+		{
+			//for each word, look for matching words in textbook title
+			loop1: for(int i = 0; i < itemList.size() ; i++)
+			{
+				//handle repeated finds
+				for(int j = 0; j < returnList.size(); j++)
+				{
+					if(itemList.get(i).get(0).equals(returnList.get(j).get(0)))
+					{
+						continue loop1;
+					}
+				}
+				if(itemList.get(i).get(0).contains(ss))
+				{
+					 returnList.add(itemList.get(i));
+				}
+			}
+		}
+		return returnList;
+	}
+	
+	// searches for an item by its number
 	public ArrayList<String> queryByItem(String iD) {
 		ArrayList<String> itemInfo;
 		
 		//want to prevent textbook info from being changed
 		synchronized(this){
-			for (int i = 0; i < 4; i++) {
+			for (int i = 0; i < itemList.size(); i++) {
 				itemInfo = itemList.get(i);
 				if (itemInfo.contains(iD)) {
 					return itemInfo;
@@ -91,7 +118,7 @@ public class CatalogServer implements OrderServerToCatalogeServer,FrontEndServer
 	public synchronized ArrayList<String> updateStock(String itemNumber, String newNum) {
 		ArrayList<String> textElement;
 		
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < itemList.size(); i++) {
 			textElement = itemList.get(i);
 			if (textElement.contains(Integer.parseInt(itemNumber))) {
 				int oldStock = Integer.parseInt(textElement.get(3));
@@ -120,7 +147,7 @@ public class CatalogServer implements OrderServerToCatalogeServer,FrontEndServer
 		public synchronized ArrayList<String> updatePrice(String itemNumber, String newPrice) {
 			ArrayList<String> textElement;
 
-			for (int i = 0; i < 4; i++) {
+			for (int i = 0; i < itemList.size(); i++) {
 				textElement = itemList.get(i);
 				if (textElement.contains(Integer.parseInt(itemNumber))) {
 					textElement.set(2, newPrice);

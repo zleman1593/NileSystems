@@ -48,8 +48,8 @@ public class FrontEndServer implements ClientToFronEndServer {
 	}
 
 	@Override
-	public synchronized ArrayList<String> search(String topic) throws RemoteException {
-		return  stubCatalog.queryByItem(topic);
+	public synchronized ArrayList<ArrayList<String>> search(String topic) throws RemoteException {
+		return  stubCatalog.queryByTopic(topic);
 	}
 
 	@Override
