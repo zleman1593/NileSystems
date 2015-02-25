@@ -14,13 +14,9 @@ public class CatalogServer implements OrderServerToCatalogeServer,FrontEndServer
 	public static void main(String args[]) {
 		try {
 			CatalogServer obj = new CatalogServer();
-			//CatalogServer obj2 = new CatalogServer();
 			Remote stubForOrder = UnicastRemoteObject.exportObject(obj, 0);
-			//FrontEndServerToCatalogServer stubForFront = (FrontEndServerToCatalogServer) UnicastRemoteObject.exportObject(obj2, 0);
 			Registry registry = LocateRegistry.createRegistry(PORT);
-			//registry.bind("OrderServerToCatalogeServer", stubForOrder);
 			registry.bind("CatalogServer", stubForOrder);
-//			registry.bind("FrontEndServerToCatalogServer", stubForFront);
 
 		} catch (Exception e) {
 			System.err.println("Server exception: " + e.toString());
@@ -124,8 +120,8 @@ public class CatalogServer implements OrderServerToCatalogeServer,FrontEndServer
 		
 		for (int i = 0; i < itemList.size(); i++) {
 			textElement = itemList.get(i);
-			if (textElement.contains(Integer.parseInt(itemNumber))) {
-				int oldStock = Integer.parseInt(textElement.get(3));
+			if (textElement.contains(itemNumber)) {
+				int oldStock = Integer.parseInt(textElement.get(0));
 				if(oldStock + Integer.parseInt(newNum) < 0)
 				{
 					//no more books to sell
@@ -134,7 +130,7 @@ public class CatalogServer implements OrderServerToCatalogeServer,FrontEndServer
 					textElement.add("out of stock");
 					return textElement;
 				}
-				textElement.set(3, ""+oldStock);
+				textElement.set(0, ""+(oldStock + Integer.parseInt(newNum)));
 				return itemList.get(i);
 			}
 		}

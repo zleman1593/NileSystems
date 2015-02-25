@@ -17,7 +17,6 @@ public class OrderServer implements FrontEndServerToOrderServer {
 		 * can talk to it
 		 */
 		try {
-			//Registry registry = LocateRegistry.createRegistry(OSPORT);
 			Registry registry = LocateRegistry.getRegistry("localhost", PORT);
 			OrderServer obj = new OrderServer();
 			FrontEndServerToOrderServer stubOrder = (FrontEndServerToOrderServer) UnicastRemoteObject.exportObject(obj,

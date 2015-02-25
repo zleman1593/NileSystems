@@ -33,7 +33,7 @@ public class Client {
 				return;
 			}
 		}else{
-			System.out.println("Bought Book:" + result.get(0));
+			System.out.println("Bought Book: " + result.get(3));
 		}
 	}
 	
