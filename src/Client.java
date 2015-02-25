@@ -20,18 +20,20 @@ public class Client {
 	public void actionOne() throws RemoteException {
 		System.out.println("Action One invoked from First Client");
 		ArrayList<String> result = stub.buy("57471");
-		if(result.get(0).equals("-1"))
+		if(result.get(0).equalsIgnoreCase("-1"))
 		{
-			if(result.get(1).equals("out of stock"))
+			if(result.get(1).equalsIgnoreCase("out of stock"))
 			{
 				System.out.println("Out of Stock");
 				return;
 			}
-			if(result.get(1).equals("invalid itemNumber"))
+			if(result.get(1).equalsIgnoreCase("invalid itemNumber"))
 			{
 				System.out.println("Invalid itemNumber");
 				return;
 			}
+		}else{
+			System.out.println("Bought Book:" + result.get(0));
 		}
 	}
 	
@@ -53,9 +55,9 @@ public class Client {
 	public void actionThree() throws RemoteException {
 		System.out.println("Action Three invoked from Third Client");
 		ArrayList<String> result = stub.lookup("57471");
-		if(result.get(0).equals("-1"))
+		if(result.get(0).equalsIgnoreCase("-1"))
 		{
-			if(result.get(1).equals("invalid itemNumber"))
+			if(result.get(1).equalsIgnoreCase("invalid itemNumber"))
 			{
 				System.out.println("Invalid itemNumber");
 				return;

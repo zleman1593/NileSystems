@@ -111,8 +111,8 @@ public class CatalogServer implements OrderServerToCatalogeServer,FrontEndServer
 		}
 
 		itemInfo = new ArrayList<String>(1);
-		itemInfo.add("invalid itemNumber");
 		itemInfo.add("-1");
+		itemInfo.add("invalid itemNumber");
 		return itemInfo;
 	}
 
@@ -130,8 +130,8 @@ public class CatalogServer implements OrderServerToCatalogeServer,FrontEndServer
 				{
 					//no more books to sell
 					textElement = new ArrayList<String>(2);
-					textElement.add("out of stock");
 					textElement.add("-1");
+					textElement.add("out of stock");
 					return textElement;
 				}
 				textElement.set(3, ""+oldStock);
@@ -140,8 +140,8 @@ public class CatalogServer implements OrderServerToCatalogeServer,FrontEndServer
 		}
 		
 		textElement = new ArrayList<String>(2);
-		textElement.add("invalid itemNumber");
 		textElement.add("-1");
+		textElement.add("invalid itemNumber");
 		return textElement;
 	}
 	
@@ -160,8 +160,8 @@ public class CatalogServer implements OrderServerToCatalogeServer,FrontEndServer
 			}
 
 			textElement = new ArrayList<String>(2);
-			textElement.add("invalid itemNumber");
 			textElement.add("-1");
+			textElement.add("invalid itemNumber");
 			return textElement;
 		}
 
