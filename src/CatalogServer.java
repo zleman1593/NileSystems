@@ -81,7 +81,7 @@ public class CatalogServer implements OrderServerToCatalogeServer,FrontEndServer
 					continue;
 				}
 				
-				if(itemList.get(i).get(0).contains(ss))
+				if(itemList.get(i).get(3).contains(ss))
 				{
 					 returnList.add(itemList.get(i));
 				}
