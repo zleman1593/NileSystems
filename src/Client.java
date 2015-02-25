@@ -3,7 +3,6 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
 
-import com.sun.org.apache.xpath.internal.operations.String;
 
 public class Client {
 	private ClientToFronEndServer stub;
@@ -39,7 +38,7 @@ public class Client {
 	public void actionTwo() throws RemoteException {
 		System.out.println("Action Two invoked from Second Client");
 			ArrayList<ArrayList<String>> result = stub.search("Distributed Systems for Dummies");
-			if(result.size == 0){
+			if(result.size() == 0){
 				System.out.println("Could not find any books with those search words");
 			}else{
 				for(int i = 0; i < result.size(); i++)
