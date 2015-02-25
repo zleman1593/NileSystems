@@ -42,13 +42,13 @@ public class CatalogServer implements OrderServerToCatalogeServer,FrontEndServer
 		input1.add("101");
 		input1.add("57471");
 		input1.add("Achieving Less Bugs with More Hugs in CSCI 3325");
-		input1.add(" distributed systems");
+		input1.add("distributed systems");
 		
 		input2.add("5");
 		input2.add("121");
 		input2.add("58574");
 		input2.add("Distributed Systems for Dummies");
-		input2.add(" distributed systems");
+		input2.add("distributed systems");
 
 		input3.add("5");
 		input3.add("141");
@@ -70,6 +70,8 @@ public class CatalogServer implements OrderServerToCatalogeServer,FrontEndServer
 	}
 
 	//searches for an item by its topic
+	//BUGS: TODO: when searching title, unimportant words like "for" will cause any title with for to have that book returned
+	//
 	public ArrayList<ArrayList<String>> queryByTopic(String topic)
 	{
 		ArrayList<ArrayList<String>> returnList  = new ArrayList<ArrayList<String>>();
