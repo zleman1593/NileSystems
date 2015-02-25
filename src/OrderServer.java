@@ -2,7 +2,9 @@ import java.rmi.server.UnicastRemoteObject;
 import java.rmi.registry.Registry;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.*;
+
 
 public class OrderServer implements FrontEndServerToOrderServer {
 	private FrontEndServerToOrderServer stubOrder;
@@ -39,18 +41,9 @@ public class OrderServer implements FrontEndServerToOrderServer {
 	}
 
 	@Override
-	public synchronized boolean buy(String itemNumber) throws RemoteException {
+	public synchronized ArrayList<String> buy(String itemNumber) throws RemoteException {
 		// Query catalog to make sure the item is in stock and decrement count by 1
-		if(!stubCatalog.queryByItem(itemNumber).get(0).equalsIgnoreCase("-1")){
-			stubCatalog.updateStock(itemNumber, "-1");
-			System.out.println("Purchased Book");
-			return true;
-		}else{
-
-		// Returns true if success and false if out of stock
-		System.out.println("Book purchase could not be completed at this time.");
-		return false;
-		}
+		return stubCatalog.updateStock(itemNumber, "-1");
 		
 	}
 }

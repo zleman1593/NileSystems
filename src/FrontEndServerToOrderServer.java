@@ -1,9 +1,10 @@
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 public interface FrontEndServerToOrderServer extends Remote {
-	boolean buy(String itemNumber) throws RemoteException;
+	ArrayList<String> buy(String itemNumber) throws RemoteException;
 }
 
 

@@ -1,6 +1,7 @@
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.ArrayList;
 
 public class Client {
 	private ClientToFronEndServer stub;
@@ -17,8 +18,19 @@ public class Client {
 
 	public void actionOne() throws RemoteException {
 		System.out.println("Action One invoked from First Client");
-		if (!stub.buy("57471")) {
-			System.out.println("Out of Stock");
+		ArrayList<String> result = stub.buy("57471");
+		if(result.get(0).equals("-1"))
+		{
+			if(result.get(1).equals("out of stock"))
+			{
+				System.out.println("Out of Stock");
+				return;
+			}
+			if(result.get(1).equals("invalid itemNumber"))
+			{
+				System.out.println("Invalid itemNumber");
+				return;
+			}
 		}
 	}
 	
@@ -36,7 +48,19 @@ public class Client {
 	
 	public void actionThree() throws RemoteException {
 		System.out.println("Action Three invoked from Third Client");
-		System.out.println(stub.lookup("57471"));
+		ArrayList<String> result = stub.lookup("57471");
+		if(result.get(0).equals("-1"))
+		{
+			if(result.get(1).equals("invalid itemNumber"))
+			{
+				System.out.println("Invalid itemNumber");
+				return;
+			}
+		}
+		for(int i = 0; i < 4; i++)
+		{
+			System.out.println(result.get(i));
+		}
 	}
 
 }

@@ -28,7 +28,7 @@ public class CatalogServer implements OrderServerToCatalogeServer,FrontEndServer
 	}
 
 	// Constructor
-	public synchronized CatalogServer() {
+	public CatalogServer() {
 
 		itemList = new ArrayList<ArrayList<String>>(4);
 
@@ -80,6 +80,7 @@ public class CatalogServer implements OrderServerToCatalogeServer,FrontEndServer
 		}
 
 		itemInfo = new ArrayList<String>(1);
+		itemInfo.add("invalid itemNumber");
 		itemInfo.add("-1");
 		return itemInfo;
 	}
@@ -94,7 +95,15 @@ public class CatalogServer implements OrderServerToCatalogeServer,FrontEndServer
 			textElement = itemList.get(i);
 			if (textElement.contains(Integer.parseInt(itemNumber))) {
 				int oldStock = Integer.parseInt(textElement.get(3));
-				oldStock += Integer.parseInt(newNum);					textElement.set(3, ""+oldStock);
+				if(oldStock + Integer.parseInt(newNum) < 0)
+				{
+					//no more books to sell
+					textElement = new ArrayList<String>(2);
+					textElement.add("out of stock");
+					textElement.add("-1");
+					return textElement;
+				}
+				textElement.set(3, ""+oldStock);
 				return itemList.get(i);
 			}
 		}
