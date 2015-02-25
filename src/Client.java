@@ -66,5 +66,18 @@ public class Client {
 			System.out.println(result.get(i));
 		}
 	}
+	
+	public void actionFour() throws RemoteException {
+		System.out.println("Action Four invoked from Fourth Client");
+		ArrayList<ArrayList<String>> result = stub.search("Bugs");
+		if(result.size() == 0){
+			System.out.println("Could not find any books with those search words");
+		}else{
+			for(int i = 0; i < result.size(); i++)
+			{
+				System.out.println(result.get(0).get(0) + ": Item Number " + result.get(0).get(1));
+			}	
+		}
+	}
 
 }

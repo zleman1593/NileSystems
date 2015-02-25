@@ -15,6 +15,9 @@ public class Simulator {
 		Client third = new Client("localhost");
 		first.actionThree();
 		
+		Client fourth = new Client("localhost");
+		first.actionFour();
+		
 	
 	}
 }
