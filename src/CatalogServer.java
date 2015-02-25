@@ -119,7 +119,7 @@ public class CatalogServer implements OrderServerToCatalogeServer,FrontEndServer
 	
 
 	// updates the stock of an item
-	public synchronized ArrayList<String> updateStock(String itemNumber, String newNum) {
+	public  ArrayList<String> updateStock(String itemNumber, String newNum) {
 		ArrayList<String> textElement;
 		
 		for (int i = 0; i < itemList.size(); i++) {
@@ -148,7 +148,7 @@ public class CatalogServer implements OrderServerToCatalogeServer,FrontEndServer
 	
 	
 	//Updates the price of an item
-		public synchronized ArrayList<String> updatePrice(String itemNumber, String newPrice) {
+		public  ArrayList<String> updatePrice(String itemNumber, String newPrice) {
 			ArrayList<String> textElement;
 
 			for (int i = 0; i < itemList.size(); i++) {

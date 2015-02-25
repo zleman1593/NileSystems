@@ -29,7 +29,7 @@ public class Client {
 			}
 			if(result.get(1).equalsIgnoreCase("invalid itemNumber"))
 			{
-				System.out.println("Invalid itemNumber");
+				System.out.println("Invalid Item Number");
 				return;
 			}
 		}else{

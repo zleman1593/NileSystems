@@ -42,18 +42,18 @@ public class FrontEndServer implements ClientToFronEndServer {
 
 	/* Attempts to buy one book. Returns false if not enough books available */
 	@Override
-	public synchronized ArrayList<String> buy(String itemNumber) throws RemoteException {
+	public  ArrayList<String> buy(String itemNumber) throws RemoteException {
 		System.out.println("Buy method on front-end server has received a request");
 		return stubOrder.buy(itemNumber);
 	}
 
 	@Override
-	public synchronized ArrayList<ArrayList<String>> search(String topic) throws RemoteException {
+	public  ArrayList<ArrayList<String>> search(String topic) throws RemoteException {
 		return  stubCatalog.queryByTopic(topic);
 	}
 
 	@Override
-	public synchronized ArrayList<String> lookup(String itemNumber) throws RemoteException {
+	public  ArrayList<String> lookup(String itemNumber) throws RemoteException {
 		return stubCatalog.queryByItem(itemNumber);
 	}
 

@@ -41,7 +41,7 @@ public class OrderServer implements FrontEndServerToOrderServer {
 	}
 
 	@Override
-	public synchronized ArrayList<String> buy(String itemNumber) throws RemoteException {
+	public  ArrayList<String> buy(String itemNumber) throws RemoteException {
 		// Query catalog to make sure the item is in stock and decrement count by 1
 		return stubCatalog.updateStock(itemNumber, "-1");
 		
