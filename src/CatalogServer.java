@@ -73,16 +73,14 @@ public class CatalogServer implements OrderServerToCatalogeServer,FrontEndServer
 		for(String ss : arr)
 		{
 			//for each word, look for matching words in textbook title
-			loop1: for(int i = 0; i < itemList.size() ; i++)
+			for(int i = 0; i < itemList.size() ; i++)
 			{
 				//handle repeated finds
-				for(int j = 0; j < returnList.size(); j++)
+				if(returnList.contains(itemList.get(i)))
 				{
-					if(itemList.get(i).get(0).equals(returnList.get(j).get(0)))
-					{
-						continue loop1;
-					}
+					continue;
 				}
+				
 				if(itemList.get(i).get(0).contains(ss))
 				{
 					 returnList.add(itemList.get(i));
