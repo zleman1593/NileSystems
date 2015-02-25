@@ -121,16 +121,19 @@ public class CatalogServer implements OrderServerToCatalogeServer,FrontEndServer
 		for (int i = 0; i < itemList.size(); i++) {
 			textElement = itemList.get(i);
 			if (textElement.contains(itemNumber)) {
-				int oldStock = Integer.parseInt(textElement.get(0));
-				if(oldStock + Integer.parseInt(newNum) < 0)
+				synchronized(this)
 				{
-					//no more books to sell
-					textElement = new ArrayList<String>(2);
-					textElement.add("-1");
-					textElement.add("out of stock");
-					return textElement;
+					int oldStock = Integer.parseInt(textElement.get(0));
+					if(oldStock + Integer.parseInt(newNum) < 0)
+					{
+						//no more books to sell
+						textElement = new ArrayList<String>(2);
+						textElement.add("-1");
+						textElement.add("out of stock");
+						return textElement;
+					}
+					textElement.set(0, ""+(oldStock + Integer.parseInt(newNum)));
 				}
-				textElement.set(0, ""+(oldStock + Integer.parseInt(newNum)));
 				return itemList.get(i);
 			}
 		}
@@ -144,15 +147,18 @@ public class CatalogServer implements OrderServerToCatalogeServer,FrontEndServer
 	
 	
 	//Updates the price of an item
-		public  ArrayList<String> updatePrice(String itemNumber, String newPrice) {
+		public ArrayList<String> updatePrice(String itemNumber, String newPrice) {
 			ArrayList<String> textElement;
-
-			for (int i = 0; i < itemList.size(); i++) {
-				textElement = itemList.get(i);
-				if (textElement.contains(Integer.parseInt(itemNumber))) {
-					textElement.set(2, newPrice);
-					return itemList.get(i);
-				}
+			
+				for (int i = 0; i < itemList.size(); i++) {
+					syncrhonized(this){
+						textElement = itemList.get(i);
+						
+						if (textElement.contains(Integer.parseInt(itemNumber))) {
+							textElement.set(2, newPrice);
+							return itemList.get(i);
+						}
+					}
 			}
 
 			textElement = new ArrayList<String>(2);
