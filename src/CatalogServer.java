@@ -5,7 +5,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
-public class CatalogServer implements OrderServerToCatalogeServer,FrontEndServerToCatalogServer {
+public class CatalogServer implements OrderServerToCatalogeServer, FrontEndServerToCatalogServer {
 	static int PORT = 8884;
 	// list to hold information about the 4 books
 	private ArrayList<ArrayList<String>> itemList;
@@ -39,7 +39,7 @@ public class CatalogServer implements OrderServerToCatalogeServer,FrontEndServer
 		input1.add("57471");
 		input1.add("Achieving Less Bugs with More Hugs in CSCI 3325");
 		input1.add("distributed systems");
-		
+
 		input2.add("5");
 		input2.add("121");
 		input2.add("58574");
@@ -51,7 +51,7 @@ public class CatalogServer implements OrderServerToCatalogeServer,FrontEndServer
 		input3.add("12395");
 		input3.add("Surviving College");
 		input3.add("college life");
-		
+
 		input4.add("5");
 		input4.add("161");
 		input4.add("13298");
@@ -65,39 +65,37 @@ public class CatalogServer implements OrderServerToCatalogeServer,FrontEndServer
 
 	}
 
-	//searches for an item by its topic
-	//BUGS: TODO: when searching title, unimportant words like "for" will cause any title with for to have that book returned
+	// searches for an item by its topic
+	// BUGS: TODO: when searching title, unimportant words like "for" will cause
+	// any title with for to have that book returned
 	//
-	public ArrayList<ArrayList<String>> queryByTopic(String topic)
-	{
-		ArrayList<ArrayList<String>> returnList  = new ArrayList<ArrayList<String>>();
+	public ArrayList<ArrayList<String>> queryByTopic(String topic) {
+		ArrayList<ArrayList<String>> returnList = new ArrayList<ArrayList<String>>();
 		String[] arr = topic.split(" ");
-		for(String ss : arr)
-		{
-			//for each word, look for matching words in textbook title
-			for(int i = 0; i < itemList.size() ; i++)
-			{
-				//handle repeated finds
-				if(returnList.contains(itemList.get(i)))
-				{
+		for (String ss : arr) {
+			// for each word, look for matching words in textbook title
+			synchronized (this) {
+			for (int i = 0; i < itemList.size(); i++) {
+				// handle repeated finds
+				if (returnList.contains(itemList.get(i))) {
 					continue;
 				}
-				
-				if(itemList.get(i).get(3).contains(ss) || itemList.get(i).get(4).contains(ss) )
-				{
-					 returnList.add(itemList.get(i));
+
+				if (itemList.get(i).get(3).contains(ss) || itemList.get(i).get(4).contains(ss)) {
+					returnList.add(itemList.get(i));
 				}
+			}
 			}
 		}
 		return returnList;
 	}
-	
+
 	// searches for an item by its number
 	public ArrayList<String> queryByItem(String iD) {
 		ArrayList<String> itemInfo;
-		
-		//want to prevent textbook info from being changed
-		synchronized(this){
+
+		// want to prevent textbook info from being changed
+		synchronized (this) {
 			for (int i = 0; i < itemList.size(); i++) {
 				itemInfo = itemList.get(i);
 				if (itemInfo.contains(iD)) {
@@ -112,65 +110,63 @@ public class CatalogServer implements OrderServerToCatalogeServer,FrontEndServer
 		return itemInfo;
 	}
 
-	
-
 	// updates the stock of an item
-	public  ArrayList<String> updateStock(String itemNumber, String newNum) {
+	public ArrayList<String> updateStock(String itemNumber, String newNum) {
 		ArrayList<String> textElement;
-		
+
 		for (int i = 0; i < itemList.size(); i++) {
-			synchronized(this)
-			{textElement = itemList.get(i);
+			synchronized (this) {
+				textElement = itemList.get(i);
+
 			
-			}
 			if (textElement.contains(itemNumber)) {
-				
-					int oldStock = Integer.parseInt(textElement.get(0));
-					if(oldStock + Integer.parseInt(newNum) < 0)
-					{
-						//no more books to sell
-						textElement = new ArrayList<String>(2);
-						textElement.add("-1");
-						textElement.add("out of stock");
-						return textElement;
-					}
-					//textElement.set(0, ""+(oldStock + Integer.parseInt(newNum)));
-				
-					synchronized(this) { 
-						itemList.get(i).set(0, ""+(oldStock + Integer.parseInt(newNum)));//updates the global variable
-						return itemList.get(i); 
-						
-					}
+
+				int oldStock = Integer.parseInt(textElement.get(0));
+			
+				if (oldStock + Integer.parseInt(newNum) < 0) {
+					// no more books to sell
+					textElement = new ArrayList<String>(2);
+					textElement.add("-1");
+					textElement.add("out of stock");
+					return textElement;
+				}
+
+		
+					itemList.get(i).set(0, "" + (oldStock + Integer.parseInt(newNum)));// updates
+																						// the
+																						// global
+																						// variable
+					return itemList.get(i);
+
+				}
 			}
 		}
-		
+
 		textElement = new ArrayList<String>(2);
 		textElement.add("-1");
 		textElement.add("invalid itemNumber");
 		return textElement;
 	}
-	
-	
-	
-	//Updates the price of an item
-		public ArrayList<String> updatePrice(String itemNumber, String newPrice) {
-			ArrayList<String> textElement;
-			
-				for (int i = 0; i < itemList.size(); i++) {
-					synchronized (this){
-						textElement = itemList.get(i);
-						
-						if (textElement.contains(Integer.parseInt(itemNumber))) {
-							textElement.set(2, newPrice);
-							return itemList.get(i);
-						}
-					}
-			}
 
-			textElement = new ArrayList<String>(2);
-			textElement.add("-1");
-			textElement.add("invalid itemNumber");
-			return textElement;
+	// Updates the price of an item
+	public ArrayList<String> updatePrice(String itemNumber, String newPrice) {
+		ArrayList<String> textElement;
+
+		for (int i = 0; i < itemList.size(); i++) {
+			synchronized (this) {
+				textElement = itemList.get(i);
+
+				if (textElement.contains(Integer.parseInt(itemNumber))) {
+					textElement.set(2, newPrice);
+					return itemList.get(i);
+				}
+			}
 		}
+
+		textElement = new ArrayList<String>(2);
+		textElement.add("-1");
+		textElement.add("invalid itemNumber");
+		return textElement;
+	}
 
 }
