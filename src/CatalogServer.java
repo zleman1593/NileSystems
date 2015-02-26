@@ -119,10 +119,12 @@ public class CatalogServer implements OrderServerToCatalogeServer,FrontEndServer
 		ArrayList<String> textElement;
 		
 		for (int i = 0; i < itemList.size(); i++) {
-			textElement = itemList.get(i);
+			synchronized(this)
+			{textElement = itemList.get(i);
+			
+			}
 			if (textElement.contains(itemNumber)) {
-				synchronized(this)
-				{
+				
 					int oldStock = Integer.parseInt(textElement.get(0));
 					if(oldStock + Integer.parseInt(newNum) < 0)
 					{
@@ -132,9 +134,13 @@ public class CatalogServer implements OrderServerToCatalogeServer,FrontEndServer
 						textElement.add("out of stock");
 						return textElement;
 					}
-					textElement.set(0, ""+(oldStock + Integer.parseInt(newNum)));
-				}
-				return itemList.get(i);
+					//textElement.set(0, ""+(oldStock + Integer.parseInt(newNum)));
+				
+					synchronized(this) { 
+						itemList.get(i).set(0, ""+(oldStock + Integer.parseInt(newNum)));//updates the global variable
+						return itemList.get(i); 
+						
+					}
 			}
 		}
 		
@@ -151,7 +157,7 @@ public class CatalogServer implements OrderServerToCatalogeServer,FrontEndServer
 			ArrayList<String> textElement;
 			
 				for (int i = 0; i < itemList.size(); i++) {
-					syncrhonized(this){
+					synchronized (this){
 						textElement = itemList.get(i);
 						
 						if (textElement.contains(Integer.parseInt(itemNumber))) {
