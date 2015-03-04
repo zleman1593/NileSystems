@@ -45,7 +45,9 @@ public class Client {
 			}else{
 				for(int i = 0; i < result.size(); i++)
 				{
-					System.out.println(result.get(0).get(0) + ": Item Number " + result.get(0).get(1));
+					System.out.println(result.get(0).get(3) + ": Item Number " + result.get(0).get(2));
+					System.out.println("Price: " + result.get(0).get(1));
+					System.out.println("Stock: " + result.get(0).get(0));
 				}	
 			}
 		
@@ -63,10 +65,10 @@ public class Client {
 				return;
 			}
 		}
-		for(int i = 0; i < 4; i++)
-		{
-			System.out.println(result.get(i));
-		}
+		
+		System.out.println(result.get(3));
+		System.out.println("Price: " + result.get(1));
+		System.out.println("Stock: " + result.get(0));
 	}
 	
 	public void actionFour() throws RemoteException {
@@ -77,7 +79,9 @@ public class Client {
 		}else{
 			for(int i = 0; i < result.size(); i++)
 			{
-				System.out.println(result.get(i).get(0) + ": Item Number " + result.get(i).get(1));
+				System.out.println(result.get(0).get(3) + ": Item Number " + result.get(0).get(2));
+				System.out.println("Price: " + result.get(0).get(1));
+				System.out.println("Stock: " + result.get(0).get(0));
 			}	
 		}
 	}
