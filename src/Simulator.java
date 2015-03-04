@@ -6,6 +6,12 @@ public class Simulator {
 		//First client
 		Client first = new Client("localhost");
 		first.actionOne();
+		first.actionOne();
+		first.actionOne();
+		first.actionOne();
+		first.actionOne();
+		first.actionOne();
+		first.actionOne();
 		//Create delay
 		//Second client
 		Client second = new Client("localhost");

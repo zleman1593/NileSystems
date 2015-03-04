@@ -38,10 +38,11 @@ public class Client {
 	}
 	
 	public void actionTwo() throws RemoteException {
+		String searchTerm = "horses";
 		System.out.println("Action Two invoked from Second Client");
-			ArrayList<ArrayList<String>> result = stub.search("Distributed Systems for Dummies");
+			ArrayList<ArrayList<String>> result = stub.search(searchTerm);
 			if(result.size() == 0){
-				System.out.println("Could not find any books with those search words");
+				System.out.println("Could not find any books with those search words: " + searchTerm);
 			}else{
 				for(int i = 0; i < result.size(); i++)
 				{
