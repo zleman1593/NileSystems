@@ -10,6 +10,7 @@ public class CatalogServer implements OrderServerToCatalogeServer, FrontEndServe
 	// list to hold information about the 4 books
 	private ArrayList<ArrayList<String>> itemList;
 
+	//create registry using port 8884 for other servers to add to
 	// hold information about the four books
 	public static void main(String args[]) {
 		try {
@@ -66,29 +67,29 @@ public class CatalogServer implements OrderServerToCatalogeServer, FrontEndServe
 	}
 
 	// searches for an item by its topic
-	// BUGS: TODO: when searching title, unimportant words like "for" will cause
-	// any title with for to have that book returned
-	//
 	public ArrayList<ArrayList<String>> queryByTopic(String topic) {
 		ArrayList<ArrayList<String>> returnList = new ArrayList<ArrayList<String>>();
 		String[] arr = topic.split(" ");
 		for (String ss : arr) {
 			// for each word, look for matching words in textbook title
-			synchronized (this) {
+			
 			loop1: for (int i = 0; i < itemList.size(); i++) {
-				// handle repeated finds
-
+				//looking at a specific textbook. Don't want it to be changed midway
+				synchronized (this) {
 				if (itemList.get(i).get(4).contains(ss)) {
+					//handle repeated finds
+					//look through already found textbooks to see if textbook is already found 
 					for(int j = 0; j < returnList.size(); j++)
 					{
 						if(returnList.get(j).get(2).equals(itemList.get(i).get(2)))
-						{
+						{//if textbook already found, skip this textbook
 							continue loop1;
 						}
 					}
+					//matching textbook topic with search word
 					returnList.add(itemList.get(i));
 				}
-			}
+				}
 			}
 		}
 		return returnList;
@@ -98,16 +99,17 @@ public class CatalogServer implements OrderServerToCatalogeServer, FrontEndServe
 	public ArrayList<String> queryByItem(String iD) {
 		ArrayList<String> itemInfo;
 
-		// want to prevent textbook info from being changed
-		synchronized (this) {
+		/*did not synchronized because item number is never changed
+		so there is no fear of inaccurate data*/
 			for (int i = 0; i < itemList.size(); i++) {
 				itemInfo = itemList.get(i);
-				if (itemInfo.contains(iD)) {
+				if (itemInfo.contains(iD)) 
+				{//if item has matching ID
 					return itemInfo;
 				}
 			}
-		}
 
+		//returns information notifying client that item number not found
 		itemInfo = new ArrayList<String>(1);
 		itemInfo.add("-1");
 		itemInfo.add("invalid itemNumber");
@@ -119,12 +121,14 @@ public class CatalogServer implements OrderServerToCatalogeServer, FrontEndServe
 		ArrayList<String> textElement;
 
 		for (int i = 0; i < itemList.size(); i++) {
+			/*potentially changing information about textbook, so can't let
+			information be changed by another source midway*/
 			synchronized (this) {
-				textElement = itemList.get(i);
-
+			textElement = itemList.get(i);
 			
-			if (textElement.contains(itemNumber)) {
-
+			if (textElement.contains(itemNumber)) 
+			{//if the item has been found
+				//change stock value to an int
 				int oldStock = Integer.parseInt(textElement.get(0));
 			
 				if (oldStock + Integer.parseInt(newNum) < 0) {
@@ -135,17 +139,15 @@ public class CatalogServer implements OrderServerToCatalogeServer, FrontEndServe
 					return textElement;
 				}
 
-		
-					itemList.get(i).set(0, "" + (oldStock + Integer.parseInt(newNum)));// updates
-																						// the
-																						// global
-																						// variable
-					return itemList.get(i);
+				//updates the stock
+				itemList.get(i).set(0, "" + (oldStock + Integer.parseInt(newNum)));
+				return itemList.get(i);
 
 				}
 			}
 		}
 
+		//could not find item, so return invalid result
 		textElement = new ArrayList<String>(2);
 		textElement.add("-1");
 		textElement.add("invalid itemNumber");
@@ -157,16 +159,21 @@ public class CatalogServer implements OrderServerToCatalogeServer, FrontEndServe
 		ArrayList<String> textElement;
 
 		for (int i = 0; i < itemList.size(); i++) {
+			/*updating price about textbook, so cannot let anyone access midway
+			until price is changed*/
 			synchronized (this) {
 				textElement = itemList.get(i);
 
-				if (textElement.contains(Integer.parseInt(itemNumber))) {
+				if (textElement.contains(Integer.parseInt(itemNumber))) 
+				{//item found
+					//set new price
 					textElement.set(2, newPrice);
 					return itemList.get(i);
 				}
 			}
 		}
 
+		//could not find item. return invalid result
 		textElement = new ArrayList<String>(2);
 		textElement.add("-1");
 		textElement.add("invalid itemNumber");
