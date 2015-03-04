@@ -86,5 +86,23 @@ public class Client {
 			}	
 		}
 	}
+	
+	
+	public void actionFive() throws RemoteException {
+		String searchTerm = "college life";
+		System.out.println("Action Two invoked from Second Client");
+			ArrayList<ArrayList<String>> result = stub.search(searchTerm);
+			if(result.size() == 0){
+				System.out.println("Could not find any books with those search words: " + searchTerm);
+			}else{
+				for(int i = 0; i < result.size(); i++)
+				{
+					System.out.println(result.get(i).get(3) + ": Item Number " + result.get(i).get(2));
+					System.out.println("Price: " + result.get(i).get(1));
+					System.out.println("Stock: " + result.get(i).get(0));
+				}	
+			}
+		
+	}
 
 }

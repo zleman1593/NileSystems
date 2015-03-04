@@ -15,14 +15,16 @@ public class Simulator {
 		//Create delay
 		//Second client
 		Client second = new Client("localhost");
-		first.actionTwo();
+		second.actionTwo();
 		//Create delay
 		//Third client
 		Client third = new Client("localhost");
-		first.actionThree();
+		third.actionThree();
 		//Fourth Client
 		Client fourth = new Client("localhost");
-		first.actionFour();
+		fourth.actionFour();
+		fourth.actionFive();
+		
 		
 	
 	}
