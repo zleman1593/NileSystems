@@ -45,9 +45,9 @@ public class Client {
 			}else{
 				for(int i = 0; i < result.size(); i++)
 				{
-					System.out.println(result.get(0).get(3) + ": Item Number " + result.get(0).get(2));
-					System.out.println("Price: " + result.get(0).get(1));
-					System.out.println("Stock: " + result.get(0).get(0));
+					System.out.println(result.get(i).get(3) + ": Item Number " + result.get(i).get(2));
+					System.out.println("Price: " + result.get(i).get(1));
+					System.out.println("Stock: " + result.get(i).get(0));
 				}	
 			}
 		
@@ -79,9 +79,9 @@ public class Client {
 		}else{
 			for(int i = 0; i < result.size(); i++)
 			{
-				System.out.println(result.get(0).get(3) + ": Item Number " + result.get(0).get(2));
-				System.out.println("Price: " + result.get(0).get(1));
-				System.out.println("Stock: " + result.get(0).get(0));
+				System.out.println(result.get(i).get(3) + ": Item Number " + result.get(i).get(2));
+				System.out.println("Price: " + result.get(i).get(1));
+				System.out.println("Stock: " + result.get(i).get(0));
 			}	
 		}
 	}

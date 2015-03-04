@@ -77,15 +77,15 @@ public class CatalogServer implements OrderServerToCatalogeServer, FrontEndServe
 			synchronized (this) {
 			loop1: for (int i = 0; i < itemList.size(); i++) {
 				// handle repeated finds
-				for(int j = 0; j < returnList.size(); j++)
-				{
-					if(returnList.get(j).get(3).equals(itemList.get(i).get(3)))
-					{
-						continue loop1;
-					}
-				}
 
 				if (itemList.get(i).get(4).contains(ss)) {
+					for(int j = 0; j < returnList.size(); j++)
+					{
+						if(returnList.get(j).get(2).equals(itemList.get(i).get(2)))
+						{
+							continue loop1;
+						}
+					}
 					returnList.add(itemList.get(i));
 				}
 			}
