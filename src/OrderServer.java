@@ -71,6 +71,7 @@ public class OrderServer implements FrontEndServerToOrderServer {
 						stubCatalog.updateStock(itemNumber, RESTOCKNUM);
 					}
 					purchaseHistory.get(i).set(1, "" + (1 + num));
+					return result;
 				}
 				}
 			}
