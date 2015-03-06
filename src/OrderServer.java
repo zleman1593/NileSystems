@@ -77,7 +77,8 @@ public class OrderServer implements FrontEndServerToOrderServer {
 					//create new element for textbook
 					ArrayList<String> textInfo = new ArrayList<String>(2);
 					textInfo.set(0, itemNumber);
-					textInfo.set(1, "1");	
+					textInfo.set(1, "1");
+					purchaseHistory.add(textInfo);
 				}
 				}
 			}
