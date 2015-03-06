@@ -6,7 +6,8 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 public class CatalogServer implements OrderServerToCatalogeServer, FrontEndServerToCatalogServer {
-	static int PORT = 8884;
+	static int port;
+	static int DEFAULT_PORT  = 8884;
 	// list to hold information about the 4 books
 	private ArrayList<ArrayList<String>> itemList;
 
@@ -14,9 +15,14 @@ public class CatalogServer implements OrderServerToCatalogeServer, FrontEndServe
 	// hold information about the four books
 	public static void main(String args[]) {
 		try {
+			if (args.length != 0) {
+				port = Integer.parseInt(args[0]);
+			} else {
+				port =  DEFAULT_PORT;
+			}
 			CatalogServer obj = new CatalogServer();
 			Remote stubForOrder = UnicastRemoteObject.exportObject(obj, 0);
-			Registry registry = LocateRegistry.createRegistry(PORT);
+			Registry registry = LocateRegistry.createRegistry(port);
 			registry.bind("CatalogServer", stubForOrder);
 
 		} catch (Exception e) {
