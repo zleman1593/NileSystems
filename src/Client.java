@@ -5,12 +5,14 @@ import java.util.ArrayList;
 
 public class Client {
 	private ClientToFronEndServer stub;
-	static int PORT = 8884;
+	private int port;
+
 
 	// Constructor
-	public Client(String host) {
+	public Client(String host, int port) {
 		try {
-			Registry registry = LocateRegistry.getRegistry(host, PORT);
+			this.port = port;
+			Registry registry = LocateRegistry.getRegistry(host, port);
 			stub = (ClientToFronEndServer) registry.lookup("FrontEndServer");
 		} catch (Exception e) {
 			System.err.println("Client exception: " + e.toString());

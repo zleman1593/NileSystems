@@ -4,25 +4,31 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.RemoteException;
 import java.util.*;
 
-
 public class OrderServer implements FrontEndServerToOrderServer {
-	//Stubs for connecting with order server and front-end server
+	// Stubs for connecting with order server and front-end server
 	private FrontEndServerToOrderServer stubOrder;
 	private OrderServerToCatalogeServer stubCatalog;
 	private Registry registry;
-	static int PORT = 8884;
 	private ArrayList<ArrayList<String>> purchaseHistory;
+	static int port;
+	static int DEFAULT_PORT  = 8884;
 	public static void main(String args[]) {
 		/*
 		 * Create Order Server and its interface so that the front-end server
 		 * can talk to it
 		 */
 		try {
-			Registry registry = LocateRegistry.getRegistry("localhost", PORT);
+			if (args.length != 0) {
+				port = Integer.parseInt(args[0]);
+			} else {
+				port =  DEFAULT_PORT;
+			}
+
+			Registry registry = LocateRegistry.getRegistry("localhost", port);
 			OrderServer obj = new OrderServer();
 			FrontEndServerToOrderServer stubOrder = (FrontEndServerToOrderServer) UnicastRemoteObject.exportObject(obj,
 					0);
-			
+
 			registry.bind("FrontEndServerToOrderServer", stubOrder);
 		} catch (Exception e) {
 			System.err.println("Order Server exception: " + e.toString());
@@ -33,7 +39,8 @@ public class OrderServer implements FrontEndServerToOrderServer {
 	public OrderServer() {
 		// Connect to the interface provided by the catalog server
 		try {
-			registry = LocateRegistry.getRegistry("localhost", PORT);
+			
+			registry = LocateRegistry.getRegistry("localhost", port);
 			stubCatalog = (OrderServerToCatalogeServer) registry.lookup("CatalogServer");
 			purchaseHistory = new ArrayList<ArrayList<String>>(4);
 		} catch (Exception e) {
@@ -65,5 +72,4 @@ public class OrderServer implements FrontEndServerToOrderServer {
 			}
 		}
 		return result;
-	}
 }
