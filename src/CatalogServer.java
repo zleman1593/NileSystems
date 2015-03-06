@@ -18,7 +18,6 @@ public class CatalogServer implements OrderServerToCatalogeServer, FrontEndServe
 			Remote stubForOrder = UnicastRemoteObject.exportObject(obj, 0);
 			Registry registry = LocateRegistry.createRegistry(PORT);
 			registry.bind("CatalogServer", stubForOrder);
-
 		} catch (Exception e) {
 			System.err.println("Server exception: " + e.toString());
 		}
@@ -71,11 +70,9 @@ public class CatalogServer implements OrderServerToCatalogeServer, FrontEndServe
 		ArrayList<ArrayList<String>> returnList = new ArrayList<ArrayList<String>>();
 		String[] arr = topic.split(" ");
 		for (String ss : arr) {
-			// for each word, look for matching words in textbook title
-			
+			// for each word, look for matching words in textbook title		
 			loop1: for (int i = 0; i < itemList.size(); i++) {
 				//looking at a specific textbook. Don't want it to be changed midway
-				synchronized (this) {
 				if (itemList.get(i).get(4).contains(ss)) {
 					//handle repeated finds
 					//look through already found textbooks to see if textbook is already found 
@@ -88,7 +85,6 @@ public class CatalogServer implements OrderServerToCatalogeServer, FrontEndServe
 					}
 					//matching textbook topic with search word
 					returnList.add(itemList.get(i));
-				}
 				}
 			}
 		}
