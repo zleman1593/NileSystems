@@ -13,7 +13,7 @@ public class OrderServer implements FrontEndServerToOrderServer {
 	static int port;
 	static int DEFAULT_PORT  = 8884;
 	static int RESTOCKTHRESH = 3;
-	static String RESTOCKNUM = "5";
+	static String RESTOCKNUM = "3";
 	public static void main(String args[]) {
 		/*
 		 * Create Order Server and its interface so that the front-end server
