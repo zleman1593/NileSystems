@@ -66,10 +66,11 @@ public class OrderServer implements FrontEndServerToOrderServer {
 					//increment purchased counter
 					int num = Integer.parseInt(purchaseHistory.get(i).get(1));
 					if(0 == num % RESTOCKTHRESH)
-					{
+					{//3 books have been purchased since last restock
 						//restock
 						stubCatalog.updateStock(itemNumber, RESTOCKNUM);
 					}
+					//a book has been purchased. increment counter
 					purchaseHistory.get(i).set(1, "" + (1 + num));
 					return result;
 				}
