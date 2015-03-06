@@ -41,7 +41,8 @@ public class OrderServer implements FrontEndServerToOrderServer {
 
 	@Override
 	public  ArrayList<String> buy(String itemNumber) throws RemoteException {
-		// Query catalog to make sure the item is in stock and decrement count by 1
+		/*update stock by decrementing count by 1. returns invalid information if
+		cannot purchase*/
 		return stubCatalog.updateStock(itemNumber, "-1");
 		
 	}
