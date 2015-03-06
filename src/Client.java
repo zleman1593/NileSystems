@@ -35,16 +35,19 @@ public class Client {
 		} else {
 			System.out.println("Bought Book: " + result.get(3));
 		}
+		System.out.println("");
 	}
 
 	/*Is given a book Id and returns info about book if found, or that a book with that ID could not be found*/
 	public void lookUpById(String id) throws RemoteException {
+		System.out.println("Looking up book with ID " + id);
 		ArrayList<String> result = stub.lookup(id);
 		if (result.get(0).equalsIgnoreCase("-1")) {
 			if (result.get(1).equalsIgnoreCase("invalid itemNumber")) {
 				System.out.println("Invalid itemNumber");
 				return;
 			}
+			System.out.println("");
 		}
 
 		System.out.println(result.get(3));
@@ -57,11 +60,15 @@ public class Client {
 		ArrayList<ArrayList<String>> result = stub.search(searchTerm);
 		if (result.size() == 0) {
 			System.out.println("Could not find any books with those search words for their topics: " + searchTerm);
+			System.out.println("");
 		} else {
+			System.out.println("Books who's topic matches: " + searchTerm);
 			for (int i = 0; i < result.size(); i++) {
-				System.out.println(result.get(i).get(3) + ": Item Number " + result.get(i).get(2));
+				System.out.println(result.get(i).get(3));
+				System.out.println("Item Number " + result.get(i).get(2));
 				System.out.println("Price: " + result.get(i).get(1));
 				System.out.println("Stock: " + result.get(i).get(0));
+				System.out.println("");
 			}
 		}
 	}
