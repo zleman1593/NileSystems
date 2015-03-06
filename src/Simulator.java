@@ -18,6 +18,7 @@ public class Simulator {
 		first.buy("57471");
 		first.buy("57471");
 		first.buy("57471");
+		first.buy("58574");
 
 		//Second client
 		Client second = new Client("localhost",port);
