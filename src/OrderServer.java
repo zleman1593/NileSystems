@@ -12,6 +12,8 @@ public class OrderServer implements FrontEndServerToOrderServer {
 	private ArrayList<ArrayList<String>> purchaseHistory;
 	static int port;
 	static int DEFAULT_PORT  = 8884;
+	static int RESTOCKTHRESH = 3;
+	static String RESTOCKNUM = "5";
 	public static void main(String args[]) {
 		/*
 		 * Create Order Server and its interface so that the front-end server
@@ -62,7 +64,13 @@ public class OrderServer implements FrontEndServerToOrderServer {
 				if(purchaseHistory.get(i).get(0).equals(itemNumber))
 				{//book has been purchased before
 					//increment purchased counter
-					purchaseHistory.get(i).set(1, "" + (1 + Integer.parseInt(purchaseHistory.get(i).get(1))));
+					int num = Integer.parseInt(purchaseHistory.get(i).get(1));
+					if(0 == num % RESTOCKTHRESH)
+					{
+						//restock
+						stubCatalog.updateStock(itemNumber, RESTOCKNUM);
+					}
+					purchaseHistory.get(i).set(1, "" + (1 + num));
 				}
 				else
 				{//book has never been purchased before
