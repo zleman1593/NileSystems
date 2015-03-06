@@ -57,6 +57,8 @@ public class OrderServer implements FrontEndServerToOrderServer {
 			//valid purchase. Log purchase
 			for(int i = 0; i < purchaseHistory.size(); i++)
 			{
+				synchronized(this){
+					
 				if(purchaseHistory.get(i).get(0).equals(itemNumber))
 				{//book has been purchased before
 					//increment purchased counter
@@ -69,7 +71,9 @@ public class OrderServer implements FrontEndServerToOrderServer {
 					textInfo.set(0, itemNumber);
 					textInfo.set(1, "1");	
 				}
+				}
 			}
 		}
 		return result;
+	}
 }
