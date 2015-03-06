@@ -40,18 +40,20 @@ public class FrontEndServer implements ClientToFronEndServer {
 
 	}
 
-	/* Attempts to buy one book. Returns false if not enough books available */
+	/* Attempts to buy one book. Returns error if not enough books available or if book does not exist */
 	@Override
 	public  ArrayList<String> buy(String itemNumber) throws RemoteException {
 		System.out.println("Buy method on front-end server has received a request");
 		return stubOrder.buy(itemNumber);
 	}
 
+	/*Searches using the catalog server for books matching the topic string*/
 	@Override
 	public  ArrayList<ArrayList<String>> search(String topic) throws RemoteException {
 		return  stubCatalog.queryByTopic(topic);
 	}
 
+	/* Searches for an item by its Id number. Returns error if book does not exist. Returns info about all matching books*/
 	@Override
 	public  ArrayList<String> lookup(String itemNumber) throws RemoteException {
 		return stubCatalog.queryByItem(itemNumber);

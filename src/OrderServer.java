@@ -7,6 +7,7 @@ import java.util.*;
 
 
 public class OrderServer implements FrontEndServerToOrderServer {
+	//Stubs for connecting with order server and front-end server
 	private FrontEndServerToOrderServer stubOrder;
 	private OrderServerToCatalogeServer stubCatalog;
 	private Registry registry;

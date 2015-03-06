@@ -5,26 +5,24 @@ public class Simulator {
 	public static void main(String[] args) throws RemoteException {
 		//First client
 		Client first = new Client("localhost");
-		first.actionOne();
-		first.actionOne();
-		first.actionOne();
-		first.actionOne();
-		first.actionOne();
-		first.actionOne();
-		first.actionOne();
-		//Create delay
+		first.buy("57471");
+		first.buy("57471");
+		first.buy("57471");
+		first.buy("57471");
+		first.buy("57471");
+		first.buy("57471");
+
 		//Second client
 		Client second = new Client("localhost");
-		second.actionTwo();
-		//Create delay
+		second.lookUpById("57471");
+
 		//Third client
 		Client third = new Client("localhost");
-		third.actionThree();
+		third.searchByTopic("horses");
 		//Fourth Client
 		Client fourth = new Client("localhost");
-		fourth.actionFour();
-		fourth.actionFive();
-		
+		fourth.searchByTopic("systems");
+		fourth.searchByTopic("college life");
 		
 	
 	}
