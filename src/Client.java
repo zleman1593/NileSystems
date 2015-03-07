@@ -62,7 +62,7 @@ public class Client {
 			System.out.println("Could not find any books with those search words for their topics: " + searchTerm);
 			System.out.println("");
 		} else {
-			System.out.println("Books who's topic matches: " + searchTerm);
+			System.out.println("Books whose topic matches: " + searchTerm);
 			for (int i = 0; i < result.size(); i++) {
 				System.out.println(result.get(i).get(3));
 				System.out.println("Item Number " + result.get(i).get(2));
