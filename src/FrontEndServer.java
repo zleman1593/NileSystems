@@ -10,6 +10,7 @@ public class FrontEndServer implements ClientToFronEndServer {
 	private FrontEndServerToCatalogServer stubCatalog;
 	static int port;
 	static int DEFAULT_PORT  = 8884;
+	static String ip = "localhost";
 
 	public static void main(String[] args) {
 
@@ -25,7 +26,7 @@ public class FrontEndServer implements ClientToFronEndServer {
 			}
 			FrontEndServer obj = new FrontEndServer();
 			ClientToFronEndServer stub = (ClientToFronEndServer) UnicastRemoteObject.exportObject(obj, 0);
-			Registry registry = LocateRegistry.getRegistry("localhost", port);
+			Registry registry = LocateRegistry.getRegistry(ip, port);
 			registry.bind("FrontEndServer", stub);
 		} catch (Exception e) {
 			System.err.println("Front-end Server exception when init Server: " + e.toString());
@@ -36,7 +37,7 @@ public class FrontEndServer implements ClientToFronEndServer {
 	// constructor
 	public FrontEndServer() {
 		try {
-			registry = LocateRegistry.getRegistry("localhost", port);
+			registry = LocateRegistry.getRegistry(ip, port);
 			stubOrder = (FrontEndServerToOrderServer) registry.lookup("FrontEndServerToOrderServer");
 			stubCatalog = (FrontEndServerToCatalogServer) registry
 					.lookup("CatalogServer");
