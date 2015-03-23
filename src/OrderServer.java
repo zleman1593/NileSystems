@@ -14,7 +14,9 @@ public class OrderServer implements FrontEndServerToOrderServer {
 	static int DEFAULT_PORT  = 8884;
 	static int RESTOCKTHRESH = 3;
 	static String RESTOCKNUM = "3";
-	static String ip = "localhost";
+	static int OSPORT = 8885;
+	static int CSPORT = 8884;
+	static String ip = "54.172.38.98";
 	public static void main(String args[]) {
 		/*
 		 * Create Order Server and its interface so that the front-end server
@@ -27,7 +29,7 @@ public class OrderServer implements FrontEndServerToOrderServer {
 				port =  DEFAULT_PORT;
 			}
 
-			Registry registry = LocateRegistry.getRegistry(ip, port);
+			Registry registry = LocateRegistry.createRegistry(OSPORT);
 			OrderServer obj = new OrderServer();
 			FrontEndServerToOrderServer stubOrder = (FrontEndServerToOrderServer) UnicastRemoteObject.exportObject(obj,
 					0);
@@ -43,7 +45,7 @@ public class OrderServer implements FrontEndServerToOrderServer {
 		// Connect to the interface provided by the catalog server
 		try {
 			
-			registry = LocateRegistry.getRegistry(ip, port);
+			registry = LocateRegistry.getRegistry(ip, CSPORT);
 			stubCatalog = (OrderServerToCatalogeServer) registry.lookup("CatalogServer");
 			purchaseHistory = new ArrayList<ArrayList<String>>(4);
 		} catch (Exception e) {
